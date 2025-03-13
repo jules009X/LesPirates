@@ -3,9 +3,10 @@ package back;
 public class Pioche {
 	private Carte[] cartes; // Tableau contenant toutes les cartes
 	private int nbCartes; // Nombre de cartes encore disponibles
+	private int indexProchaineCarte = 0;
 
 	public Pioche() {
-		cartes = new Carte[20]; // Taille maximale de la pioche (modifiable)
+		cartes = new Carte[30]; // Taille maximale de la pioche (modifiable)
 		nbCartes = 0;
 	}
 
@@ -16,7 +17,25 @@ public class Pioche {
 		cartes[nbCartes++] = new CartePopularite("Fête", "Gagne 1 popularité", 1);
 		cartes[nbCartes++] = new CarteAttaque("Sabotage", "Retire 1 carte à l'ennemi", 1);
 		cartes[nbCartes++] = new CartePopularite("Discours", "Inspire les foules", 2);
-		// Continue à ajouter tes autres cartes ici
+		cartes[nbCartes++] = new CartePopularite("Discours enflammé", "Augmente l'engouement du peuple", 1);
+		cartes[nbCartes++] = new CartePopularite("Grande parade", "Les gens sont ravis", 2);
+		cartes[nbCartes++] = new CartePopularite("Don au peuple", "Le peuple applaudit votre générosité", 1);
+		cartes[nbCartes++] = new CartePopularite("Bal populaire", "Vous devenez très aimé", 2);
+		cartes[nbCartes++] = new CartePopularite("Fête des pirates", "Fait la une du journal !", 3);
+		cartes[nbCartes++] = new CarteAttaque("Attaque surprise", "Inflige des dégâts inattendus", 1);
+		cartes[nbCartes++] = new CarteAttaque("Sabotage", "Endommage les défenses ennemies", 2);
+		cartes[nbCartes++] = new CarteAttaque("Feu de canon", "Tire sur le navire adverse", 2);
+		cartes[nbCartes++] = new CarteAttaque("Invasion", "Grosse attaque frontale", 3);
+		cartes[nbCartes++] = new CarteAttaque("Coup de grâce", "Attaque finale puissante", 4);
+		cartes[nbCartes++] = new CartePopularite("Élection truquée", "Le peuple croit en vous", 2);
+		cartes[nbCartes++] = new CartePopularite("Discours héroïque", "Émeut les citoyens", 3);
+		cartes[nbCartes++] = new CartePopularite("Feu d'artifice", "Spectacle grandiose", 2);
+		cartes[nbCartes++] = new CarteAttaque("Boarding", "Montez à bord et volez une carte", 2);
+		cartes[nbCartes++] = new CarteAttaque("Explosion", "Cause des dégâts massifs", 3);
+		cartes[nbCartes++] = new CarteAttaque("Tir précis", "Affaiblit l'ennemi", 1);
+		cartes[nbCartes++] = new CartePopularite("Soutien populaire", "Le peuple vous adore", 3);
+		cartes[nbCartes++] = new CarteAttaque("Tactique rusée", "Prend l'ennemi par surprise", 2);
+		
 	}
 
 	// Mélanger la pioche manuellement
@@ -29,31 +48,28 @@ public class Pioche {
 		}
 	}
 
-	// Piocher une carte (retire la première carte disponible)
-	public Carte piocher() {
-		if (nbCartes == 0) {
+	public Carte piocherCarte() {
+		if (indexProchaineCarte < nbCartes) {
+			Carte carte = cartes[indexProchaineCarte];
+			cartes[indexProchaineCarte] = null;
+			indexProchaineCarte++;
+			return carte;
+		} else {
 			System.out.println("La pioche est vide !");
 			return null;
 		}
-
-		Carte cartePiochee = cartes[0];
-
-		// Décalage des cartes vers la gauche
-		for (int i = 0; i < nbCartes - 1; i++) {
-			cartes[i] = cartes[i + 1];
-		}
-		cartes[nbCartes - 1] = null;
-		nbCartes--;
-
-		return cartePiochee;
 	}
 
 	// (Optionnel) Affiche les cartes restantes dans la pioche
+
 	public void afficherPioche() {
-		System.out.println("Cartes restantes dans la pioche : " + nbCartes);
-		for (int i = 0; i < nbCartes; i++) {
-			System.out.print("[" + (i + 1) + "] ");
-			cartes[i].afficherCarte();
+		System.out.println("Cartes restantes dans la pioche : " + (nbCartes - indexProchaineCarte));
+		for (int i = indexProchaineCarte; i < nbCartes + indexProchaineCarte; i++) {
+			if (cartes[i] != null) {
+				System.out.print("[" + (i + 1) + "] ");
+				cartes[i].afficherCarte();
+			}
+
 		}
 	}
 }

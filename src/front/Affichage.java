@@ -68,10 +68,11 @@ public class Affichage implements IAffichage {
 	public void afficherMain(String nom, String[] main) {
 		System.out.println("Main de " + nom + " :");
 		for (int i = 0; i < main.length; i++) {
-			System.out.println("[" + (i + 1) + "] " + main[i]);
+			if (main[i] != null) {
+			System.out.println("[" + (i + 1) + "] " + main[i].toString()); // toString() affiche la carte proprement
+			}
 		}
 	}
-
 	@Override
 	public void afficherCartePopularite(String nomJoueur1) {
 		System.out.println(nomJoueur1 + " a posé une carte de popularité !");

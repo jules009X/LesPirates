@@ -50,7 +50,7 @@ public class Pirate {
 		}
 	}
 
-	public String getNom() {
+	public  String getNom() {
 		return nom;
 	}
 
@@ -70,6 +70,17 @@ public class Pirate {
 		popularite += points;
 	}
 
+	public Carte[] getMain() {
+		return main;
+	}
+	public Carte getCarteMain(int index) {
+        if (index >= 0 && index < nbCartesMain) {
+            return main[index];
+        } else {
+            System.out.println("Index de carte invalide !");
+            return null; // Ou tu peux lancer une exception si tu préfères
+        }
+    }
 	public void ajouterCarteDansMain(Carte carte) {
 		if (nbCartesMain < 4) {
 			main[nbCartesMain] = carte;
