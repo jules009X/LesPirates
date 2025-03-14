@@ -30,7 +30,7 @@ public class Jeu {
 		Pirate pirate1 = new Pirate(nom1);
 		Pirate pirate2 = new Pirate(nom2);
 		pioche.remplirPioche();
-		pioche.melanger();
+
 		for (int i = 0; i < 4; i++) {
 			Carte cartePiochee = pioche.piocherCarte();
 			if (cartePiochee != null) {
@@ -42,6 +42,7 @@ public class Jeu {
 			if (cartePiochee1 != null) {
 				pirate2.ajouterCarteDansMain(cartePiochee1);
 			}
+		}
 			int tour = 1;
 			boolean jeuEnCours = true;
 
@@ -52,6 +53,7 @@ public class Jeu {
 				jouerUnTour(pirate1, pirate2, pioche);
 				if (pirate1.getPopularite() >= 5 || pirate2.getVie() <= 0) {
 					Jeu.affichage.afficherGagnant(pirate1.getNom());
+					jeuEnCours=false;
 					break;
 				}
 
@@ -59,6 +61,7 @@ public class Jeu {
 				jouerUnTour(pirate2, pirate1, pioche);
 				if (pirate2.getPopularite() >= 5 || pirate1.getVie() <= 0) {
 					Jeu.affichage.afficherGagnant(pirate2.getNom());
+					jeuEnCours=false;
 					break;
 				}
 
@@ -67,7 +70,7 @@ public class Jeu {
 
 			Jeu.affichage.afficherFin();
 		}
-	}
+	
 
 	private static void jouerUnTour(Pirate joueur, Pirate adversaire, Pioche pioche) {
 		Carte piochee = pioche.piocherCarte();
@@ -86,9 +89,17 @@ public class Jeu {
 			CartePopularite pop = (CartePopularite) carteChoisie;
 			joueur.gagnerPopularite(pop.getPopularite());
 			joueur.poserCarteDansBanc(choix - 1);
-		} else if (carteChoisie instanceof CarteAttaque) {
-			CarteAttaque attaque = (CarteAttaque) carteChoisie;
-			adversaire.perdreVie(attaque.getNbeffet());
+		} 
+		if (carteChoisie instanceof CarteSpeciale) {
+			
+			joueur.setPointsDeVie(adversaire.getPointsDeVie());
+			joueur.setPopularite(adversaire.getPopularite());
+			joueur.poserCarteDansBanc(choix - 1);
+		}
+		if (carteChoisie instanceof CarteMagic) {
+			CarteMagic magic = (CarteMagic) carteChoisie;
+			adversaire.perdreVie(magic.getNbeffet());
+			joueur.gagnerPopularite(magic.getPopularite());
 			joueur.poserCarteDansBanc(choix - 1);
 		}
 

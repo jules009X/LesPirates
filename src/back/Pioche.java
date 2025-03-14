@@ -35,19 +35,19 @@ public class Pioche {
 		cartes[nbCartes++] = new CarteAttaque("Tir précis", "Affaiblit l'ennemi", 1);
 		cartes[nbCartes++] = new CartePopularite("Soutien populaire", "Le peuple vous adore", 3);
 		cartes[nbCartes++] = new CarteAttaque("Tactique rusée", "Prend l'ennemi par surprise", 2);
+		cartes[nbCartes++] = new CarteMagic("Magie des vents", "Inflige 3 dégâts et augmente la popularité", 3, 2);
+		cartes[nbCartes++] = new CarteMagic("Flamme magique", "Inflige 5 dégâts et réduit la popularité de l'adversaire", 5, -1);
+		cartes[nbCartes++] = new CarteMagic("Onde d'énergie", "Inflige 2 dégâts, gain de popularité", 2, 1);
+		cartes[nbCartes++] = new CarteMagic("Tempête d'étoiles", "Inflige 1 dégât et augmente fortement la popularité", 1, 3);
+		cartes[nbCartes++] = new CarteSpeciale("Échange magique", "Échange une carte avec un adversaire", "Échange");
+		cartes[nbCartes++] = new CarteSpeciale("Protection divine", "Protège un joueur contre une attaque", "Défense");
+		cartes[nbCartes++] = new CarteSpeciale("Attaque surprise", "Inflige des dégâts inattendus à l'ennemi", "Attaque");
+		cartes[nbCartes++] = new CarteSpeciale("Vol de trésor", "Permet de voler une carte à l'ennemi", "Vol");
 		
 	}
 
-	// Mélanger la pioche manuellement
-	public void melanger() {
-		for (int i = 0; i < nbCartes; i++) {
-			int j = (int) (Math.random() * nbCartes);
-			Carte temp = cartes[i];
-			cartes[i] = cartes[j];
-			cartes[j] = temp;
-		}
-	}
-
+	
+	
 	public Carte piocherCarte() {
 		if (indexProchaineCarte < nbCartes) {
 			Carte carte = cartes[indexProchaineCarte];

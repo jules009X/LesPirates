@@ -100,5 +100,15 @@ public class Pirate {
 		}
 		return resultats;
 	}
+	public void setPointsDeVie(int pointsDeVie) {
+	    this.pointsDeVie = pointsDeVie;
+	}
+
+	public void setPopularite(int popularite) {
+	    this.popularite = popularite;
+	}
+	public int getPointsDeVie() {
+	    return pointsDeVie;
+	}
 
 }

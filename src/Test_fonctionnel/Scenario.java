@@ -10,10 +10,11 @@ import back.Pioche;
 
 public class Scenario {
 	public static void main(String[] args) {
+		
 		Jeu.setAffichage(new Affichage());
 
 		Jeu.getAffichage().afficherDebut();
-		// 2. Récupération des noms
+	
 		
       Jeu.lancerPartie();
 		
