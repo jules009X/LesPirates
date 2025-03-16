@@ -107,8 +107,5 @@ public class Pirate {
 	public void setPopularite(int popularite) {
 	    this.popularite = popularite;
 	}
-	public int getPointsDeVie() {
-	    return pointsDeVie;
-	}
 
 }

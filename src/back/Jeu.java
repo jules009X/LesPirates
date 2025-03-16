@@ -43,37 +43,38 @@ public class Jeu {
 				pirate2.ajouterCarteDansMain(cartePiochee1);
 			}
 		}
-			int tour = 1;
-			boolean jeuEnCours = true;
+		int tour = 1;
+		boolean jeuEnCours = true;
 
-			while (jeuEnCours) {
-				Jeu.affichage.afficherTour(tour);
+		while (jeuEnCours) {
+			Jeu.affichage.afficherTour(tour);
 
-				// Tour du joueur 1
-				jouerUnTour(pirate1, pirate2, pioche);
-				if (pirate1.getPopularite() >= 5 || pirate2.getVie() <= 0) {
-					Jeu.affichage.afficherGagnant(pirate1.getNom());
-					jeuEnCours=false;
-					break;
-				}
-
-				// Tour du joueur 2
-				jouerUnTour(pirate2, pirate1, pioche);
-				if (pirate2.getPopularite() >= 5 || pirate1.getVie() <= 0) {
-					Jeu.affichage.afficherGagnant(pirate2.getNom());
-					jeuEnCours=false;
-					break;
-				}
-
-				tour++;
+			// Tour du joueur 1
+			jouerUnTour(pirate1, pirate2, pioche);
+			if (pirate1.getPopularite() >= 5 || pirate2.getVie() <= 0) {
+				Jeu.affichage.afficherGagnant(pirate1.getNom());
+				jeuEnCours = false;
+				break;
 			}
 
-			Jeu.affichage.afficherFin();
+			// Tour du joueur 2
+			jouerUnTour(pirate2, pirate1, pioche);
+			if (pirate2.getPopularite() >= 5 || pirate1.getVie() <= 0) {
+				Jeu.affichage.afficherGagnant(pirate2.getNom());
+				jeuEnCours = false;
+				break;
+			}
+
+			tour++;
 		}
-	
+
+		Jeu.affichage.afficherFin();
+	}
 
 	private static void jouerUnTour(Pirate joueur, Pirate adversaire, Pioche pioche) {
 		Carte piochee = pioche.piocherCarte();
+		int valeurVie=joueur.getVie();
+		int valeurPopularite=joueur.getPopularite();
 		if (piochee == null)
 			return; // plus de cartes
 
@@ -90,15 +91,23 @@ public class Jeu {
 			joueur.gagnerPopularite(pop.getPopularite());
 			joueur.poserCarteDansBanc(choix - 1);
 		} 
+		if (carteChoisie instanceof CarteAttaque) {
+			CarteAttaque attaque = (CarteAttaque) carteChoisie;
+			adversaire.perdreVie(attaque.getNbeffet());
+			joueur.poserCarteDansBanc(choix - 1);
+		} 
 		if (carteChoisie instanceof CarteSpeciale) {
 			
-			joueur.setPointsDeVie(adversaire.getPointsDeVie());
+			joueur.setPointsDeVie(adversaire.getVie());
 			joueur.setPopularite(adversaire.getPopularite());
+			adversaire.setPointsDeVie(valeurVie);
+			adversaire.setPopularite(valeurPopularite);
 			joueur.poserCarteDansBanc(choix - 1);
 		}
 		if (carteChoisie instanceof CarteMagic) {
 			CarteMagic magic = (CarteMagic) carteChoisie;
 			adversaire.perdreVie(magic.getNbeffet());
+			joueur.poserCarteDansBanc(choix - 1);
 			joueur.gagnerPopularite(magic.getPopularite());
 			joueur.poserCarteDansBanc(choix - 1);
 		}
