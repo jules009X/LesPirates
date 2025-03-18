@@ -14,14 +14,6 @@ public class Jeu {
 		Jeu.affichage = affichage;
 	}
 
-	public void jouerPirate() {
-		affichage.afficherDebut();
-		String nomJoueur1 = affichage.recupererNomJoueur(1);
-		String nomJoueur2 = affichage.recupererNomJoueur(2);
-		Pirate pirate1 = new Pirate(nomJoueur1);
-		Pirate pirate2 = new Pirate(nomJoueur2);
-
-	}
 
 	public static void lancerPartie() {
 		String nom1 = Jeu.getAffichage().recupererNomJoueur(1);
