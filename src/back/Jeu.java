@@ -48,7 +48,7 @@ public class Jeu {
 				jeuEnCours = false;
 				break;
 			}
-
+ 
 			// Tour du joueur 2
 			jouerUnTour(pirate2, pirate1, pioche);
 			if (pirate2.getPopularite() >= 5 || pirate1.getVie() <= 0) {
